@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes bgRoll {
+    0% { background-color: black; }
+    50% { background-color: gold; }
+    100% { background-color: violet; }
+}
+
+#player {
+    width: 720px;
+    height: 480px;
+    border: 1px solid black;
+    background-image: url(http://www.drone-corp.com/drone-photographie-haute-resolution.jpg);
+    background-size: cover;
+    animation: bgRoll 20s infinite alternate;
+    transition: opacity 1s;
+}
+
+.hidden {
+    opacity: 0;
+}
