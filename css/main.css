@@ -4,8 +4,11 @@ body {
     height: 100vh;
     text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 10px;
+    font-family: monospace;
 }
 
 @keyframes bgRoll {
@@ -18,12 +21,60 @@ body {
     width: 720px;
     height: 480px;
     border: 1px solid black;
-    background-image: url(http://www.drone-corp.com/drone-photographie-haute-resolution.jpg);
+    /* background-image: url(http://www.drone-corp.com/drone-photographie-haute-resolution.jpg); */
     background-size: cover;
     animation: bgRoll 20s infinite alternate;
     transition: opacity 1s;
+    margin-bottom: 0.5em;
+    
 }
 
-.hidden {
-    opacity: 0;
+.loading {
+    /* opacity: 0; */
+    color: white;
+    background: black;
+}
+
+#log, #commands {
+    display: flex;
+    /* padding: 0.5em 0; */
+    width: 100%;
+}
+
+#log p, #commands p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0.5em;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#log p {
+    flex-basis: 50%;
+    border-right: none;
+}
+#log p:last-child {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);;
+}
+
+#commands p {
+    flex-basis: 16.667%;
+    border-top: none;
+    border-right: none;
+}
+#commands p:last-child {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);;
+}
+
+input {
+    width: 30px;
+    text-align: right;
+    font-family: monospace;
+}
+
+button {
+    font-family: monospace;
+    cursor: pointer;
+    padding: 0;
 }

@@ -12,7 +12,54 @@
 
     <body>
 
-<div id="player" class="hidden"></div>
+<div id="container">
+
+    <div id="player" class="loading"></div>
+
+    <div id="log">
+        <p>
+            <label for="log-fps">FPS: </label>
+            <input id="log-fps">
+        </p>
+
+        <p>
+            <label for="log-frame">Frame: </label>
+            <input id="log-frame">
+        </p>
+    </div>
+
+    <div id="commands">
+        <p>
+            <label for="cmd-change-fps">Change FPS: </label>
+            <input id="cmd-change-fps">
+        </p>
+
+        <p>
+            <label for="cmd-go-to-frame">Go to frame: </label>
+            <input id="cmd-go-to-frame">
+        </p>
+        <p>
+            <label for="cmd-loop">Loop: </label>
+            <input id="cmd-loop" type="checkbox">
+        </p>
+        <p>
+            <label for="cmd-loop-reverse">Loop R: </label>
+            <input id="cmd-loop-reverse" type="checkbox">
+        </p>
+        <p style="justify-content: center;">
+            <!-- <button id="reverse" style="display: inline-block;">Reverse</button> -->
+            <label for="cmd-reverse">Reverse: </label>
+            <input id="cmd-reverse" type="checkbox">
+        </p>
+        <p style="justify-content: center;">
+            <button id="stop" style="display: inline-block;">Stop</button>
+        </p>
+        <p style="justify-content: center;">
+            <button id="play" style="display: inline-block;">Play</button>
+        </p>
+    </div>
+
+</div>
 
 <script src="js/main.js"></script>
     </body>
