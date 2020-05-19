@@ -1,9 +1,20 @@
 class Player {
 
-    constructor (id='player', strip='strip', videoH, FPS=24, imgNumber, rollNumber=1, imgPerRoll, firstImg=1, loop=true, loopR=false) {
+    constructor (
+        id='player',
+        parent=document.body,
+        strip='strip',
+        videoH, FPS=24,
+        imgNumber,
+        rollNumber=1,
+        imgPerRoll,
+        firstImg=1,
+        loop=true,
+        loopR=false,
+        debug=false,
+        ) {
 
-        this.player = document.createElement('div');
-        this.player.id = "player";
+        this.player;
         
         // Parameters
         this.strip = strip;
@@ -13,6 +24,7 @@ class Player {
         // this.firstImg = firstImg;
         this.loop = loop;
         this.loopR = loopR;
+        this.debug = debug;
 
         // Internal
         this.intervalID;
@@ -27,7 +39,7 @@ class Player {
         this.id = id;
 
         // Create DOM element
-        document.body.appendChild(this.element);
+        parent.appendChild(this.element);
         // this.setEventListeners();
 
         this.burn = false;
@@ -81,43 +93,52 @@ class Player {
 
     buildDOM() {
 
-        const dom = document.createElement('div');
-        dom.id = 'container';
+        this.player = document.createElement('div');
+        this.player.id = "player";
 
-        dom.innerHTML = `
-        <div id="commands">
-            <p>
-                <label for="cmd-change-fps">Change FPS: </label>
-                <input id="cmd-change-fps">
-            </p>
+        if (this.debug) {
+            const dom = document.createElement('div');
+            dom.id = 'container';
 
-            <p>
-                <label for="cmd-go-to-frame">Go to frame: </label>
-                <input id="cmd-go-to-frame">
-            </p>
-            <p>
-                <label for="cmd-loop">Loop: </label>
-                <input id="cmd-loop" type="checkbox">
-            </p>
-            <p>
-                <label for="cmd-loop-reverse">Loop R: </label>
-                <input id="cmd-loop-reverse" type="checkbox">
-            </p>
-            <p style="justify-content: center;">
-                <label for="cmd-reverse">Reverse: </label>
-                <input id="cmd-reverse" type="checkbox">
-            </p>
-            <p style="justify-content: center;">
-                <button id="stop" style="display: inline-block;">Stop</button>
-            </p>
-            <p style="justify-content: center;">
-                <button id="play" style="display: inline-block;">Play</button>
-            </p>
-        </div>`;
+            dom.innerHTML = `
+            <div id="commands">
+                <p>
+                    <label for="cmd-change-fps">Change FPS: </label>
+                    <input id="cmd-change-fps">
+                </p>
 
-        dom.prepend(this.player);
+                <p>
+                    <label for="cmd-go-to-frame">Go to frame: </label>
+                    <input id="cmd-go-to-frame">
+                </p>
+                <p>
+                    <label for="cmd-loop">Loop: </label>
+                    <input id="cmd-loop" type="checkbox">
+                </p>
+                <p>
+                    <label for="cmd-loop-reverse">Loop R: </label>
+                    <input id="cmd-loop-reverse" type="checkbox">
+                </p>
+                <p style="justify-content: center;">
+                    <label for="cmd-reverse">Reverse: </label>
+                    <input id="cmd-reverse" type="checkbox">
+                </p>
+                <p style="justify-content: center;">
+                    <button id="stop" style="display: inline-block;">Stop</button>
+                </p>
+                <p style="justify-content: center;">
+                    <button id="play" style="display: inline-block;">Play</button>
+                </p>
+            </div>`;
 
-        return dom;
+            dom.prepend(this.player);
+            return dom;
+
+        } else {
+
+            return this.player;
+
+        }
     }
 
 
@@ -194,6 +215,7 @@ class Player {
 // (id, strip, videoH, imgNumber, rollNumber, imgPerRoll, firstImg, loop=true, loopR)
 const myPlayer = new Player(
     id='player',
+    parent=document.getElementById('container'),
     strip='strip',
     videoH=480,
     FPS=24,
@@ -203,6 +225,7 @@ const myPlayer = new Player(
     firstImg=1,
     loop=true,
     loopR=false,
+    debug=false,
     );
 // const myPlayer = new Player( 'player', 'strip', 121, 2, 61, 1, true, false );
 
