@@ -45,7 +45,7 @@ class Player {
         this.burn = false;
         this.currentRoll = 0;
         this.rolls = [
-            '001', '002',
+            '001', '002', '003', '004',
         ];
 
     }
@@ -202,7 +202,8 @@ class Player {
 
     play() {
 
-        this.player.style.backgroundImage = `url(https://demo1.gil-web.com/media/strip_${this.rolls[this.currentRoll]}.png)`;
+        // this.player.style.backgroundImage = `url(https://demo1.gil-web.com/media/strip_${this.rolls[this.currentRoll]}.png)`;
+        this.player.style.backgroundImage = `url(_w/demo/media/death_strip/strip_${this.rolls[this.currentRoll]}.png)`;
         this.player.style.backgroundPosition = `0 ${this.videoH * (this.imgNumber - (this.frame - this.imgPerRoll * this.currentRoll))}px`;
         this.player.classList.remove('loading');
         clearInterval(this.intervalID);
@@ -213,22 +214,35 @@ class Player {
     
 }
 // (id, strip, videoH, imgNumber, rollNumber, imgPerRoll, firstImg, loop=true, loopR)
+// const myPlayer = new Player(
+//     id='player',
+//     parent=document.getElementById('container'),
+//     strip='strip',
+//     videoH=480,
+//     FPS=24,
+//     imgNumber=94,
+//     rollNumber=2,
+//     imgPerRoll=47,
+//     firstImg=1,
+//     loop=true,
+//     loopR=false,
+//     debug=false,
+//     );
+
 const myPlayer = new Player(
     id='player',
     parent=document.getElementById('container'),
     strip='strip',
-    videoH=480,
+    videoH=800,
     FPS=24,
-    imgNumber=94,
-    rollNumber=2,
-    imgPerRoll=47,
+    imgNumber=120,
+    rollNumber=4,
+    imgPerRoll=30,
     firstImg=1,
     loop=true,
     loopR=false,
     debug=false,
     );
-// const myPlayer = new Player( 'player', 'strip', 121, 2, 61, 1, true, false );
-
 
 
 
@@ -236,7 +250,13 @@ const myPlayer = new Player(
 // myPlayer.loadImages();
 
 let loader = new LoaderJS();
-loader.loadImage('media/strip_001.png', 'media/strip_002.png');
+// loader.loadImage('media/strip_001.png', 'media/strip_002.png');
+loader.loadImage(
+        '_w/demo/media/death_strip/strip_001.png',
+        '_w/demo/media/death_strip/strip_002.png',
+        '_w/demo/media/death_strip/strip_003.png',
+        '_w/demo/media/death_strip/strip_004.png',
+    );
 
 loader.whenReady = function() {
     console.log('All loaded!');

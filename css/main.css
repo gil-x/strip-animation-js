@@ -18,8 +18,11 @@ body {
 }
 
 #player {
-    width: 720px;
-    height: 480px;
+    /* width: 720px;
+    height: 480px; */
+    width: 1600px;
+    height: 800px;
+    
     border: 1px solid black;
     /* background-image: url(http://www.drone-corp.com/drone-photographie-haute-resolution.jpg); */
     background-size: cover;
