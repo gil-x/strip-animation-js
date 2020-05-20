@@ -18,14 +18,14 @@ body {
 }
 
 #player {
-    /* width: 720px;
-    height: 480px; */
-    width: 1600px;
-    height: 800px;
+    width: 720px;
+    height: 480px;
+    /* width: 800px;
+    height: 800px; */
     
     border: 1px solid black;
     /* background-image: url(http://www.drone-corp.com/drone-photographie-haute-resolution.jpg); */
-    background-size: cover;
+    /* background-size: cover; */
     animation: bgRoll 20s infinite alternate;
     transition: opacity 1s;
     margin-bottom: 0.5em;

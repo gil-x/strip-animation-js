@@ -50,7 +50,7 @@ class Strip_maker:
 
 
     def make_vertical_strip_by_roll(image_amount, rolls_amount):
-        
+        pass
 
 
 if __name__ == '__main__':

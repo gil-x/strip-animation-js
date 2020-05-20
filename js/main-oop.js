@@ -4,7 +4,9 @@ class Player {
         id='player',
         parent=document.body,
         strip='strip',
-        videoH, FPS=24,
+        videoW,
+        videoH,
+        FPS=24,
         imgNumber,
         rollNumber=1,
         imgPerRoll,
@@ -32,6 +34,7 @@ class Player {
         this.direction = 1;
         // this.reverse = loopR ? 1 : 0;
         this.FPS = FPS;
+        this.videoW = videoW;
         this.videoH = videoH;
 
         // UI
@@ -45,8 +48,10 @@ class Player {
         this.burn = false;
         this.currentRoll = 0;
         this.rolls = [
-            '001', '002', '003', '004',
+            '001', '002', '003', '004'
         ];
+
+        this.imagesFiles = [];
 
     }
 
@@ -72,21 +77,74 @@ class Player {
         // loader.loadImage(toLoad);
 
 
-        let dlProgress = 0;
+        // let dlProgress = 0;
+
+        let imagesURL = [];
+        // let images = [];
+
+        function loadImage(url) {
+            // console.log(`loading ${url}...`)
+
+            return new Promise((resolve, reject) => {
+                let img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = url;
+            });
+            
+            // img.onload = function() {
+            //     console.log(`${url} loaded`);
+            //     return img;
+            // }
+            // return 'img';
+        }
 
         for (let index = 0; index < this.rolls.length; index++) {
-            console.log(`loading media/strip_${this.rolls[index]}.png ${this.rolls.length}`);
-            let img = new Image();
-            img.src = `media/strip_${this.rolls[index]}.png`;
-
-            img.onload = function() {
-                
-                if (dlProgress == this.rolls.length) {
-                    console.log('All loaded!');
-                    this.play();
-                }
-            }.bind(this)
+            // console.log('hu?');
+            imagesURL[index] = `media/stripX4/strip_${this.rolls[index]}.png`;
         }
+
+        // for (let index = 0; index < imagesURL.length; index++) {
+        //     console.log('what?');
+        //     images[index] = loadImage(imagesURL[index]);
+        // }
+
+        const sayhello = (images) => {
+            // console.log(`hello!\n${images}`);
+            this.imagesFiles = [...images];
+            this.play();
+        }
+
+        async function loadAllImages() {
+            let images = []
+            for (let index = 0; index < imagesURL.length; index++) {
+                // console.log('what?');
+                images[index] = await loadImage(imagesURL[index]);
+                let imgX = await loadImage('https://picsum.photos/1920/1080');
+                let imgY = await loadImage('https://picsum.photos/1920/2160');
+                let imgZ = await loadImage('https://picsum.photos/2160/1080');
+            }
+            return sayhello(images);
+        }
+
+        loadAllImages();
+
+        // for (let index = 0; index < this.rolls.length; index++) {
+        //     console.log(`loading media/strip_${this.rolls[index]}.png ${this.rolls.length}`);
+        //     let img = new Image();
+        //     img.src = `${window.location}/media/stripX4/strip_${this.rolls[index]}.png`;
+
+        //     console.log(`window.location: ${window.location}`);
+
+        //     img.onload = function() {
+        //         console.log('One image loaded')
+                
+        //         if (dlProgress == this.rolls.length) {
+        //             console.log('All loaded!');
+        //             this.play();
+        //         }
+        //     }.bind(this)
+        // }
 
 
     }
@@ -150,16 +208,10 @@ class Player {
 
         this.frame += this.direction;
 
-        
-
-        if (this.frame >= this.imgPerRoll * (this.currentRoll + 1)) {
+        if (this.frame == this.imgPerRoll * (this.currentRoll + 1)) {
             this.burn = true;
-            
             // this.frame += 1;
-            
         }
-
-        
 
         // console.log(`this.currentRoll= ${this.currentRoll}`);
         // console.log(`this.imgPerRoll * (this.currentRoll + 1)= ${this.imgPerRoll * (this.currentRoll + 1)}`);
@@ -192,7 +244,7 @@ class Player {
 
 
     changeRoll() {
-        console.log('changeRoll');
+        // console.log('changeRoll');
         this.currentRoll += 1;
         if (this.currentRoll > this.rollNumber - 1) {
             this.currentRoll = 0;
@@ -202,9 +254,18 @@ class Player {
 
     play() {
 
-        // this.player.style.backgroundImage = `url(https://demo1.gil-web.com/media/strip_${this.rolls[this.currentRoll]}.png)`;
-        this.player.style.backgroundImage = `url(_w/demo/media/death_strip/strip_${this.rolls[this.currentRoll]}.png)`;
+        // console.log(`this.imagesFiles: ${this.imagesFiles}`);
+
+        // Change roll with many files
+        // this.player.style.backgroundImage = `url(media/stripX4/strip_${this.rolls[this.currentRoll]}.png)`;
+        this.player.style.backgroundImage = `url(${this.imagesFiles[this.currentRoll].src})`;
         this.player.style.backgroundPosition = `0 ${this.videoH * (this.imgNumber - (this.frame - this.imgPerRoll * this.currentRoll))}px`;
+
+        // Change roll with one file
+        // this.player.style.backgroundImage = `url(media/strip_final.png)`;
+        // this.player.style.backgroundPosition = `${this.videoW * (-this.currentRoll)}px ${this.videoH * (this.imgNumber - this.frame - this.imgPerRoll % this.currentRoll) }px`;
+
+
         this.player.classList.remove('loading');
         clearInterval(this.intervalID);
         this.intervalID = window.setInterval(this.changeFrame.bind(this), 1000 / this.FPS);
@@ -233,11 +294,12 @@ const myPlayer = new Player(
     id='player',
     parent=document.getElementById('container'),
     strip='strip',
-    videoH=800,
+    videoW=720,
+    videoH=480,
     FPS=24,
-    imgNumber=120,
+    imgNumber=96,
     rollNumber=4,
-    imgPerRoll=30,
+    imgPerRoll=24,
     firstImg=1,
     loop=true,
     loopR=false,
@@ -245,20 +307,23 @@ const myPlayer = new Player(
     );
 
 
-
 // myPlayer.play();
-// myPlayer.loadImages();
+myPlayer.loadImages();
 
-let loader = new LoaderJS();
+// let loader = new LoaderJS();
+
 // loader.loadImage('media/strip_001.png', 'media/strip_002.png');
-loader.loadImage(
-        '_w/demo/media/death_strip/strip_001.png',
-        '_w/demo/media/death_strip/strip_002.png',
-        '_w/demo/media/death_strip/strip_003.png',
-        '_w/demo/media/death_strip/strip_004.png',
-    );
 
-loader.whenReady = function() {
-    console.log('All loaded!');
-    myPlayer.play();
-}
+// loader.loadImage(
+//         '_w/demo/media/death_strip/strip_001.png',
+//         '_w/demo/media/death_strip/strip_002.png',
+//         '_w/demo/media/death_strip/strip_003.png',
+//         '_w/demo/media/death_strip/strip_004.png',
+//     );
+
+// loader.loadImage('media/strip_final.png');
+
+// loader.whenReady = function() {
+//     console.log('All loaded!');
+//     myPlayer.play();
+// }
