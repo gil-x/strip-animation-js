@@ -51,12 +51,6 @@ Frames go in `media/` as `1.webp`, `2.webp`, … `24.webp` (lossless WebP).
    WebP images can't exceed 16383 px per side, which limits the strip to
    34 frames of 480 px.
 
-## Credits
-
-`js/loader.js` is [Loader.js](https://github.com/anuraghazra/Loader.js) by
-Anurag Hazra, licensed under GPL-3.0. It is not covered by this repository's
-license.
-
 ## License
 
 [WTFPL](LICENSE) – Do What The Fuck You Want To Public License.
