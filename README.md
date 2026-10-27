@@ -28,26 +28,28 @@ The player size (720×480) is set in `css/main.css`.
 
 ## Building the strip
 
-Frames go in `media/` as `1.png`, `2.png`, … `24.png`.
+Frames go in `media/` as `1.webp`, `2.webp`, … `24.webp` (lossless WebP).
 
-1. **Renaming Blender output** – Blender writes frames as `0001.png`,
-   `0002.png`… `renamer.py` strips the leading zeros. Copy it into the
-   directory holding the frames and run it from there (PNG files only):
+1. **Renaming Blender output** – Blender writes frames as `0001.webp`,
+   `0002.webp`… `renamer.py` strips the leading zeros. Copy it into the
+   directory holding the frames and run it from there (PNG and WebP files
+   only):
 
    ```sh
    python renamer.py
    ```
 
-2. **Generating the strip** – `strip.py` assembles `media/1.png` to
-   `media/24.png` into `strip_vertical.png` (a `horizontal_strip()` function
-   is also available). Run it from the repository root, then move the result
-   into `media/`:
+2. **Generating the strip** – `strip.py` assembles `media/1.webp` to
+   `media/24.webp` into `media/strip_vertical.webp` (lossy WebP, quality 85).
+   Run it from the repository root:
 
    ```sh
    pip install -r requirements.txt
    python strip.py
-   mv strip_vertical.png media/
    ```
+
+   WebP images can't exceed 16383 px per side, which limits the strip to
+   34 frames of 480 px.
 
 ## Credits
 

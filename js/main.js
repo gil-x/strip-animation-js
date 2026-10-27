@@ -17,7 +17,7 @@ myLoader.whileLoading = function() {
 }
 
 for (let i = 1 ; i <= totalFrames ; i++) {
-    myLoader.loadImage(`img${i}`, `media/${i}.png`);
+    myLoader.loadImage(`img${i}`, `media/${i}.webp`);
 }
 
 myLoader.whenReady = function() {
@@ -39,7 +39,7 @@ function changeFrame() {
 
 function play() {
     console.log('Play!');
-    player.style.backgroundImage = `url(media/strip_vertical.png)`;
+    player.style.backgroundImage = `url(media/strip_vertical.webp)`;
     player.style.backgroundPosition = `0 ${videoH * (totalFrames - 0)}px`;
     player.classList.remove('hidden');
     intervalID = window.setInterval(changeFrame, 1000 / FPS);
